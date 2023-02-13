@@ -1,0 +1,40 @@
+//Считать из текстового файла арифметическое выражение в постфиксной записи (например, 5 6 3 * + ). Выражение  содержит знаки четырех арифметических действий. 
+//Вычислить его значение, используя для решения стек.
+#include <iostream>
+#include <stack>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	stack <float> s;
+	string sup,str;
+	cout << "Введите имя текстового файла" << endl;
+	cin >> str;
+	ifstream f(str);
+	float n1, n2;
+	while (!f.eof()) {
+		f >> sup;
+		if (sup != "+" && sup != "-" && sup != "*" && sup != "/") {
+			s.push(stoi(sup));
+		}
+		else {
+			n2 = s.top();
+			s.pop();
+			n1 = s.top();
+			s.pop();
+			if (sup == "+") s.push(n1 + n2);
+			else if (sup == "-") s.push(n1 - n2);
+			else if (sup == "*") s.push(n1 * n2);
+			else if (sup == "/") s.push(n1 / n2);
+		}
+	}
+	while (!(s.empty()))
+	{
+		cout << s.top() << endl;
+		s.pop();
+	}
+}
