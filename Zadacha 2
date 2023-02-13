@@ -1,0 +1,45 @@
+//Сгенерировать список из N элементов. Список должен содержать числа от -100 до 100. 
+//Удалить из списка все числа из заданного диапазона [k1,k2]. Обязательно использовать предикаты.
+#include <iostream>
+#include <list>
+#include <time.h>
+
+using namespace std;
+
+bool Range(int k, int k1, int k2) {
+	if (k > k1 && k < k2) return true;
+	else return false;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "rus");
+	list <int> lst;
+	list <int>::iterator p;
+	cout << "Введите длину списка: ";
+	int N, a;
+	cin >> N;
+	srand(time(NULL));
+	for (int i = 0; i < N; i++)
+	{
+		a = -100 + rand() % 200;
+		lst.push_back(a);
+	}
+	for (p = lst.begin(); p != lst.end(); p++)
+		cout << *p << " ";
+	cout << endl << endl << endl;
+	int k1, k2;
+	cout << "Введите значение k1: ";
+	cin >> k1;
+	cout << endl;
+	cout << "Введите значение k2: ";
+	cin >> k2;
+	cout << endl;
+	list <int> lst2(lst);
+	lst.clear();
+	for (p = lst2.begin(); p != lst2.end(); p++) {
+		if (!(Range(*p, k1, k2))) lst.push_back(*p);
+	}
+	for (p = lst.begin(); p != lst.end(); p++)
+		cout << *p << " ";
+}
